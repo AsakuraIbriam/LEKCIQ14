@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include <time.h>
+#include <stdio.h>
+
+double *movingAverage(double* x, size_t len, size_t window){
+    srand(time(NULL));
+   double generatedMultiplayers[window];
+
+    for(int i = 0; i < window; i++) {
+        generatedMultiplayers[i]= (double)rand()/RAND_MAX*8.0-0.5;
+    }
+
+   double *filtered = malloc(sizeof(double)*len);
+
+
+
+    int j = 1;
+    for(int i = 0; i < len; i++) {
+         int n = 0;
+            if(i <=window) {
+                n = i;
+            } else {
+                n = window;
+            }
+
+
+        double res = 0;
+
+
+        while(n >= 0) {
+                if(n <= window) {
+        res += (*(x+n))*generatedMultiplayers[n];
+                } else {
+                res += (*(x+n+j))*generatedMultiplayers[n+j];
+                }
+        n--;
+        }
+        j++;
+        filtered[i] = res;
+
+    }
+
+    return filtered;
+
+}
+
+
+  int main(int argc, char *argv[]) {
+
+
+        return 0;
+  }
